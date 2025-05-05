@@ -2,360 +2,259 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Yêu Đi Đâu? - Vòng quay lựa chọn ngẫu nhiên & Quản lý danh sách</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Yêu Đi Đâu? - Vòng quay lựa chọn ngẫu nhiên</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
     body {
-      margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: #ffe6f0; /* hồng pastel nền */
-      color: #6a3650; /* hồng tím đậm */
+      background: #ffe6f0;
+      color: #6a3650;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
       align-items: center;
       justify-content: flex-start;
-      padding: 20px;
+      padding: 10px;
       text-align: center;
       overflow-x: hidden;
-      position: relative;
     }
     header {
-      margin-bottom: 20px;
-      margin-top: 20px;
-      position: relative;
+      margin: 10px 0;
       z-index: 10;
     }
     header h1 {
-      font-size: 2.6rem;
-      margin: 0;
-      color: #d94f77; /* hồng đậm */
-      letter-spacing: 1.5px;
+      font-size: 1.6rem;
+      color: #d94f77;
+      letter-spacing: 1px;
       font-weight: 700;
-      position: relative;
-      z-index: 10;
     }
     header p {
-      font-size: 1.1rem;
+      font-size: 0.85rem;
       color: #a15a71;
-      margin-top: 6px;
-      position: relative;
-      z-index: 10;
-      margin-bottom: 15px;
+      margin: 5px 0;
     }
     .heart-icon {
       display: inline-block;
-      margin-left: 10px;
-      vertical-align: middle;
+      margin-left: 5px;
       color: #d94f77;
-      font-size: 2rem;
+      font-size: 1.2rem;
       animation: heartbeat 1.5s infinite;
-      user-select: none;
-      position: relative;
-      z-index: 10;
     }
     @keyframes heartbeat {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.2); }
     }
-
-    /* Tim lấp lánh animation */
     .sparkle {
       position: absolute;
-      width: 14px;
-      height: 14px;
+      width: 8px;
+      height: 8px;
       background: #f48fb1;
-      box-shadow:
-        0 0 10px 3px #f48fb1,
-        inset 0 0 6px 2px #fff5f9;
+      box-shadow: 0 0 6px 1px #f48fb1;
       border-radius: 50%;
-      animation: sparkleAnim 2.5s infinite ease-in-out;
+      animation: sparkleAnim 2s infinite ease-in-out;
       pointer-events: none;
-      filter: drop-shadow(0 0 2px #f48fb1);
     }
     @keyframes sparkleAnim {
-      0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
-      50% { opacity: 0.4; transform: scale(0.6) rotate(45deg); }
+      0%, 100% { opacity: 0.8; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(0.5); }
     }
-
-    /* Hai icons mèo và cún chibi */
-    .chibi-cat, .chibi-dog {
-      position: absolute;
-      width: 80px;
-      height: auto;
-      user-select: none;
-      pointer-events: none;
-      filter: drop-shadow(0 1px 3px rgba(0,0,0,0.15));
-      z-index: 5;
-    }
-    .chibi-cat {
-      top: 18px;
-      left: 12px;
-      animation: floatUpDown 4s ease-in-out infinite;
-    }
-    .chibi-dog {
-      top: 18px;
-      right: 12px;
-      animation: floatUpDown 5s ease-in-out infinite;
-      animation-delay: 2s;
-    }
-    @keyframes floatUpDown {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(8px); }
-    }
-
-    /* Main container */
     main {
       background: #fff0f6;
-      border-radius: 18px;
-      box-shadow: 0 6px 14px rgba(217, 79, 119, 0.3);
-      padding: 30px 25px;
-      max-width: 460px;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(217, 79, 119, 0.2);
+      padding: 15px;
       width: 100%;
-      margin-bottom: 40px;
+      max-width: 360px;
+      margin-bottom: 20px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 10px;
       align-items: center;
-      position: relative;
       z-index: 10;
     }
-
-    /* Nút loại chọn ban đầu */
     .btn-group {
       display: flex;
       width: 100%;
-      gap: 20px;
+      gap: 8px;
       justify-content: center;
+      flex-wrap: wrap;
     }
     button.choiceBtn {
       background: #d94f77;
       color: #fff;
-      padding: 14px 20px;
+      padding: 8px 12px;
       border: none;
-      border-radius: 30px;
-      font-weight: 700;
-      font-size: 1.1rem;
+      border-radius: 15px;
+      font-weight: 600;
+      font-size: 0.9rem;
       cursor: pointer;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 6px 12px rgba(217, 79, 119, 0.6);
-      user-select: none;
+      transition: background-color 0.2s ease;
+      box-shadow: 0 2px 4px rgba(217, 79, 119, 0.3);
       flex: 1;
-      max-width: 180px;
-      white-space: nowrap;
+      max-width: 140px;
+      touch-action: manipulation;
     }
     button.choiceBtn:hover {
       background: #e46794;
-      box-shadow: 0 8px 18px rgba(228, 103, 148, 0.8);
     }
     button.choiceBtn:active {
       background: #bf3f61;
-      box-shadow: 0 4px 8px rgba(191, 63, 97, 0.9);
-      transform: translateY(2px);
+      transform: scale(0.98);
     }
-
-    /* Nút quay bánh xe */
+    #wheel-container {
+      position: relative;
+      width: 220px;
+      height: 220px;
+      margin: 10px auto;
+    }
+    #wheelcanvas {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      box-shadow: 0 2px 6px rgba(217, 79, 119, 0.2);
+    }
+    #pointer {
+      position: absolute;
+      left: calc(50% - 10px);
+      bottom: -16px;
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 16px solid #d94f77;
+      z-index: 10;
+    }
     button#spinBtn {
-      margin-top: 15px;
       background: #d94f77;
       color: #fff;
-      padding: 14px 36px;
+      padding: 10px 25px;
       border: none;
-      border-radius: 30px;
-      font-weight: 700;
-      font-size: 1.25rem;
+      border-radius: 15px;
+      font-weight: 600;
+      font-size: 1rem;
       cursor: pointer;
-      box-shadow: 0 6px 12px rgba(217, 79, 119, 0.6);
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-      user-select: none;
-      width: 50%;
-      max-width: 200px;
-      user-select: none;
+      box-shadow: 0 2px 4px rgba(217, 79, 119, 0.3);
+      transition: background-color 0.2s ease;
+      width: 100%;
+      max-width: 160px;
+      touch-action: manipulation;
     }
     button#spinBtn:hover:not(:disabled) {
       background: #e46794;
-      box-shadow: 0 8px 18px rgba(228, 103, 148, 0.8);
     }
     button#spinBtn:active:not(:disabled) {
       background: #bf3f61;
-      box-shadow: 0 4px 8px rgba(191, 63, 97, 0.9);
-      transform: translateY(2px);
+      transform: scale(0.98);
     }
     button#spinBtn:disabled {
       background: #ce7d96;
       cursor: not-allowed;
-      box-shadow: none;
     }
-
-    /* Vùng chứa bánh xe */
-    #wheel-container {
-      position: relative;
-      width: 320px;
-      height: 320px;
-      margin-top: 10px;
-    }
-    #wheelcanvas {
-      border-radius: 50%;
-      box-shadow: 0 4px 10px rgba(217, 79, 119, 0.3);
-    }
-
-    
-    #pointer:hover {
-      border-top-color: #e46794;
-      cursor: pointer;
-    }
-
-    /* Tab chúc mừng */
     #result-tab {
       position: fixed;
-      top: 20px;
+      top: 10px;
       left: 50%;
       transform: translateX(-50%);
-      max-width: 90vw;
-      width: auto;
-      min-width: 220px;
+      max-width: 90%;
+      min-width: 180px;
       background: #ffd1e3;
-      border-radius: 18px;
-      padding: 15px 25px;
-      box-shadow: 0 5px 18px rgba(217, 79, 119, 0.7);
+      border-radius: 10px;
+      padding: 10px 15px;
+      box-shadow: 0 3px 10px rgba(217, 79, 119, 0.4);
       color: #d94f77;
-      font-weight: 700;
-      font-size: 1.2rem;
+      font-weight: 600;
+      font-size: 0.9rem;
       display: none;
-      user-select: none;
       z-index: 9999;
       text-align: center;
       animation: fadeInPopup 0.4s ease forwards;
-      white-space: normal;
       word-break: break-word;
-      box-sizing: border-box;
     }
-
     @keyframes fadeInPopup {
-      from {opacity: 0; transform: translateX(-50%) translateY(-10px);}
-      to {opacity: 1; transform: translateX(-50%) translateY(0);}
+      from { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
     }
-
-    /* Nút quay lại */
     #backBtn {
-      margin-top: 20px;
       background: #d94f77;
       color: white;
       border: none;
-      border-radius: 30px;
-      padding: 12px 28px;
+      border-radius: 15px;
+      padding: 8px 15px;
       font-weight: 600;
+      font-size: 0.9rem;
       cursor: pointer;
-      box-shadow: 0 6px 12px rgba(217, 79, 119,0.6);
-      transition: background-color 0.3s ease;
-      width: 50%;
-      max-width: 160px;
-      user-select: none;
+      box-shadow: 0 2px 4px rgba(217, 79, 119, 0.3);
+      transition: background-color 0.2s ease;
+      width: 100%;
+      max-width: 140px;
+      touch-action: manipulation;
     }
     #backBtn:hover {
       background: #e46794;
     }
     #backBtn:active {
       background: #bf3f61;
-      transform: translateY(2px);
+      transform: scale(0.98);
     }
-
-    /* Responsive */
-    @media (max-width: 460px) {
-      main {
-        max-width: 90vw;
-        padding: 25px 15px;
-      }
-      #wheel-container {
-        width: 280px;
-        height: 280px;
-      }
-      #pointer {
-        left: calc(50% - 16px);
-        border-left: 16px solid transparent;
-        border-right: 16px solid transparent;
-        border-top: 24px solid #d94f77;
-        bottom: -24px;
-      }
-      #spinBtn, #backBtn {
-        width: 70%;
-        max-width: none;
-      }
-      button.choiceBtn {
-        font-size: 1rem;
-      }
-    }
-
-    /* Phần quản lý danh sách */
     #manage-section {
       width: 100%;
-      margin-top: 30px;
       background: #ffe0ef;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 4px 10px rgba(217, 79, 119, 0.25);
+      border-radius: 8px;
+      padding: 12px;
+      box-shadow: 0 2px 6px rgba(217, 79, 119, 0.2);
       color: #6a3650;
-      text-align: left;
-      font-size: 0.96rem;
+      font-size: 0.85rem;
     }
-
     #manage-section h3 {
-      margin: 0 0 12px 0;
-      font-weight: 700;
+      margin: 0 0 8px;
+      font-weight: 600;
       color: #d94f77;
-      font-size: 1.3rem;
-      user-select: none;
+      font-size: 1rem;
     }
-
-    /* Danh sách mục */
     #item-list {
       list-style: none;
       padding: 0;
-      margin: 0 0 12px 0;
-      max-height: 130px;
+      margin: 0 0 8px;
+      max-height: 100px;
       overflow-y: auto;
       border: 1px solid #d94f77;
-      border-radius: 8px;
+      border-radius: 5px;
       background: #fff0f6;
     }
-
     #item-list li {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 6px 12px;
+      padding: 4px 8px;
       border-bottom: 1px solid #d094b9;
-      user-select: none;
     }
     #item-list li:last-child {
       border-bottom: none;
     }
-
     #item-list li span.text-item {
       flex: 1;
-      font-weight: 600;
+      font-weight: 500;
       color: #6a3650;
-      cursor: default;
       word-break: break-word;
     }
-
-    /* Nút sửa, xóa */
     .btn-edit, .btn-delete {
       background: #d94f77;
       border: none;
       color: white;
-      padding: 4px 10px;
-      margin-left: 6px;
-      border-radius: 20px;
-      font-size: 0.85rem;
+      padding: 3px 6px;
+      margin-left: 4px;
+      border-radius: 10px;
+      font-size: 0.75rem;
       cursor: pointer;
       font-weight: 600;
-      user-select: none;
-      transition: background-color 0.3s ease;
+      transition: background-color 0.2s ease;
+      touch-action: manipulation;
     }
     .btn-edit:hover {
       background: #e46794;
@@ -363,40 +262,37 @@
     .btn-delete:hover {
       background: #bf3f61;
     }
-
-    /* Form thêm/sửa */
     #edit-form {
       display: flex;
-      gap: 10px;
-      margin-top: 10px;
+      gap: 6px;
+      margin-top: 6px;
       flex-wrap: wrap;
       align-items: center;
     }
     #edit-input {
-      flex: 1 1 auto;
-      font-size: 1rem;
-      padding: 8px 12px;
-      border-radius: 20px;
-      border: 2px solid #d94f77;
-      outline-offset: 2px;
+      flex: 1;
+      font-size: 0.85rem;
+      padding: 5px 8px;
+      border-radius: 10px;
+      border: 1px solid #d94f77;
       color: #6a3650;
-      font-weight: 600;
+      font-weight: 500;
     }
     #edit-input:focus {
-      outline-color: #e46794;
+      outline: none;
       border-color: #e46794;
     }
     #saveBtn, #cancelBtn {
       background: #d94f77;
       color: white;
       border: none;
-      border-radius: 30px;
-      padding: 10px 22px;
-      font-weight: 700;
+      border-radius: 10px;
+      padding: 6px 12px;
+      font-weight: 600;
+      font-size: 0.85rem;
       cursor: pointer;
-      user-select: none;
-      transition: background-color 0.3s ease;
-      flex: 0 0 auto;
+      transition: background-color 0.2s ease;
+      touch-action: manipulation;
     }
     #saveBtn:hover {
       background: #e46794;
@@ -407,76 +303,99 @@
     #cancelBtn:hover {
       background: #a23653;
     }
-
-    /* Nút thêm mới */
     #addItemBtn {
       background: #d94f77;
       border: none;
-      border-radius: 30px;
+      border-radius: 15px;
       color: white;
-      padding: 10px 24px;
-      font-weight: 700;
+      padding: 6px 15px;
+      font-weight: 600;
+      font-size: 0.9rem;
       cursor: pointer;
-      user-select: none;
-      transition: background-color 0.3s ease;
-      margin-bottom: 12px;
+      transition: background-color 0.2s ease;
       width: 100%;
-      max-width: 180px;
-      align-self: center;
+      max-width: 140px;
+      touch-action: manipulation;
     }
     #addItemBtn:hover {
       background: #e46794;
     }
+    @media (max-width: 360px) {
+      header h1 {
+        font-size: 1.4rem;
+      }
+      header p {
+        font-size: 0.8rem;
+      }
+      main {
+        padding: 10px;
+        max-width: 95vw;
+      }
+      #wheel-container {
+        width: 200px;
+        height: 200px;
+      }
+      #pointer {
+        left: calc(50% - 8px);
+        border-left: 8px solid transparent;
+        border-right: 8px solid transparent;
+        border-top: 14px solid #d94f77;
+        bottom: -14px;
+      }
+      button.choiceBtn {
+        font-size: 0.85rem;
+        padding: 6px 10px;
+        max-width: 120px;
+      }
+      #spinBtn, #backBtn, #addItemBtn {
+        font-size: 0.85rem;
+        padding: 6px 12px;
+        max-width: 130px;
+      }
+      #result-tab {
+        font-size: 0.85rem;
+        padding: 8px 12px;
+        min-width: 160px;
+      }
+    }
+    @media (max-width: 320px) {
+      #wheel-container {
+        width: 180px;
+        height: 180px;
+      }
+    }
   </style>
 </head>
 <body>
-
-  <!-- Hình chibi mèo và cún cute bên trên -->
-  <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Mèo chibi cute" class="chibi-cat" width="80" height="80" />
-  <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Cún chibi cute" class="chibi-dog" width="80" height="80" />
-
-  <!-- Tim lấp lánh -->
-  <div class="sparkle" style="top:10px; left: 60px; animation-delay: 0s;"></div>
-  <div class="sparkle" style="top: 45px; left: 130px; animation-delay: 1s;"></div>
-  <div class="sparkle" style="top: 25px; right: 130px; animation-delay: 1.5s;"></div>
-  <div class="sparkle" style="top: 70px; right: 65px; animation-delay: 2.3s;"></div>
-  <div class="sparkle" style="top: 90px; left: 200px; animation-delay: 2.7s;"></div>
+  <div class="sparkle" style="top:10px; left:40px; animation-delay:0s;"></div>
+  <div class="sparkle" style="top:40px; right:40px; animation-delay:1s;"></div>
 
   <header>
     <h1>Bé Cún Đi Đâu Đây? <span class="heart-icon">❤️</span></h1>
-    <p>Chọn nơi đi chơi hoặc món ăn ngẫu nhiên đóa cho đỡ phải phân vân hehe</p>
+    <p>Chọn nơi đi chơi hoặc món ăn ngẫu nhiên nè</p>
   </header>
 
   <main>
-    <!-- Màn hình chọn loại -->
-    <div id="selection-screen" >
+    <div id="selection-screen">
       <div class="btn-group" role="group" aria-label="Chọn loại gợi ý">
-        <button class="choiceBtn" id="btnPlace" aria-pressed="false" aria-label="Chọn nơi đi chơi">Chọn Nơi Đi Chơi</button>
-        <button class="choiceBtn" id="btnFood" aria-pressed="false" aria-label="Chọn món ăn">Chọn Món Ăn</button>
+        <button class="choiceBtn" id="btnPlace" aria-pressed="false">Chọn Nơi Đi Chơi</button>
+        <button class="choiceBtn" id="btnFood" aria-pressed="false">Chọn Món Ăn</button>
       </div>
     </div>
 
-    <!-- Màn hình vòng quay -->
     <div id="wheel-screen" style="display:none; flex-direction: column; align-items: center;">
-
       <div id="wheel-container">
-        <canvas id="wheelcanvas" width="320" height="320" aria-label="Vòng quay chọn ngẫu nhiên"></canvas>
+        <canvas id="wheelcanvas" width="220" height="220" aria-label="Vòng quay chọn ngẫu nhiên"></canvas>
         <div id="pointer" role="img" aria-label="Mũi tên chỉ vòng quay"></div>
       </div>
       <button id="spinBtn" aria-label="Quay vòng quay ngẫu nhiên">Quay!</button>
       <button id="backBtn" style="display:none;" aria-label="Quay lại chọn loại">Quay lại</button>
       <div id="result-tab" role="alert" aria-live="assertive"></div>
 
-      <!-- Phần quản lý danh sách -->
       <section id="manage-section" aria-label="Quản lý danh sách nội dung vòng quay">
         <h3>Quản lý danh sách <span id="current-type-name"></span></h3>
         <button id="addItemBtn" aria-label="Thêm mục mới">+ Thêm mục mới</button>
-
-        <ul id="item-list" aria-live="polite">
-          <!-- Danh sách item hiển thị ở đây -->
-        </ul>
-
-        <!-- Form thêm / sửa -->
+        <ul id="item-list" aria-live="polite"></ul>
         <form id="edit-form" style="display:none;" aria-label="Form thêm chỉnh sửa mục">
           <input type="text" id="edit-input" aria-required="true" placeholder="Nhập nội dung..." />
           <button type="submit" id="saveBtn" aria-label="Lưu mục">Lưu</button>
@@ -487,56 +406,41 @@
   </main>
 
   <footer>
-    &copy; 2024 - Choa Hnguyn thuisiii thuisiiiii và TA thưm tho sạch sẻ
+    © 2024 - Choa Hnguyn & TA
   </footer>
 
   <script>
-    // Khai báo localStorage keys
     const STORAGE_KEYS = {
       place: 'yeu_di_dau_places',
       food: 'yeu_di_dau_foods'
     };
 
-    // Dữ liệu mặc định
     const defaultPlaces = [
       "Café sách Tranquil Books",
       "Phố cổ Hà Nội",
       "Hồ Gươm",
       "Công viên Thống Nhất",
-      "Lăng Bác",
-      "Chợ Đồng Xuân",
-      "Chùa Trấn Quốc",
-      "Bảo tàng Dân tộc học Việt Nam",
-      "Trung tâm thương mại Vincom Bà Triệu",
-      "Leo núi Bát Tràng"
+      "Chùa Trấn Quốc"
     ];
     const defaultFoods = [
       "Phở Hà Nội",
       "Bún chả",
       "Chả cá Lã Vọng",
       "Nem rán",
-      "Bánh cuốn Thanh Trì",
-      "Bún thang",
-      "Xôi xéo",
-      "Chè bà Thừa",
-      "Trà chanh Hà Nội",
-      "Bánh tôm Hồ Tây"
+      "Bánh cuốn Thanh Trì"
     ];
 
-    // Biến toàn cục để theo dõi trạng thái
     let currentItems = [];
-    let currentType = null; // "place" hoặc "food"
+    let currentType = null;
     let startAngle = 0;
     let arc = 0;
     let spinTimeout = null;
-    let spinArcStart = 0;
     let spinTime = 0;
     let spinTimeTotal = 0;
     let spinning = false;
     let selectedIndex = -1;
     let editingIndex = -1;
 
-    // DOM elements
     const btnPlace = document.getElementById('btnPlace');
     const btnFood = document.getElementById('btnFood');
     const selectionScreen = document.getElementById('selection-screen');
@@ -546,7 +450,6 @@
     const resultTab = document.getElementById('result-tab');
     const wheelcanvas = document.getElementById('wheelcanvas');
     const ctx = wheelcanvas.getContext('2d');
-
     const manageSection = document.getElementById('manage-section');
     const itemList = document.getElementById('item-list');
     const addItemBtn = document.getElementById('addItemBtn');
@@ -556,14 +459,10 @@
     const cancelBtn = document.getElementById('cancelBtn');
     const currentTypeName = document.getElementById('current-type-name');
 
-    // Màu pastel cho từng phần bánh xe
     const pastelColors = [
-      "#f9c2d6", "#f4a6c0", "#e48ba9", "#db6d94",
-      "#cd537a", "#b93c68", "#a7305a", "#9e2853",
-      "#98304e", "#91294b"
+      "#f9c2d6", "#f4a6c0", "#e48ba9", "#db6d94", "#cd537a"
     ];
 
-    // Lấy dữ liệu từ localStorage hoặc mặc định
     function loadData(type) {
       let data = localStorage.getItem(STORAGE_KEYS[type]);
       if (!data) {
@@ -574,44 +473,46 @@
       try {
         return JSON.parse(data);
       } catch {
-        // lỗi parse dữ liệu
         return (type === 'place') ? defaultPlaces : defaultFoods;
       }
     }
 
-    // Lưu dữ liệu vào localStorage
     function saveData(type, data) {
       localStorage.setItem(STORAGE_KEYS[type], JSON.stringify(data));
     }
 
-    // Vẽ bánh xe dựa trên currentItems
     function drawWheel() {
-      const outsideRadius = 140;
-      const textRadius = 100;
-      const insideRadius = 40;
-      arc = (2 * Math.PI) / currentItems.length;
+      const outsideRadius = 100;
+      const textRadius = 70;
+      const insideRadius = 20;
+      arc = (2 * Math.PI) / (currentItems.length || 1);
       ctx.clearRect(0, 0, wheelcanvas.width, wheelcanvas.height);
 
       ctx.strokeStyle = "#d94f77";
-      ctx.lineWidth = 2;
-
-      ctx.font = 'bold 12px Poppins, sans-serif'; // chữ nhỏ vừa đủ
+      ctx.lineWidth = 1;
+      ctx.font = 'bold 9px Poppins, sans-serif';
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
 
+      if (currentItems.length === 0) {
+        ctx.fillStyle = "#f9c2d6";
+        ctx.beginPath();
+        ctx.arc(wheelcanvas.width / 2, wheelcanvas.height / 2, outsideRadius, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.fillStyle = "#6a3650";
+        ctx.fillText("Trống", wheelcanvas.width / 2, wheelcanvas.height / 2);
+        return;
+      }
+
       for (let i = 0; i < currentItems.length; i++) {
         const angle = startAngle + i * arc;
-
-        // Tô màu
         ctx.fillStyle = pastelColors[i % pastelColors.length];
         ctx.beginPath();
-        ctx.arc(wheelcanvas.width / 2, wheelcanvas.height / 2, outsideRadius, angle, angle + arc, false);
+        ctx.arc(wheelcanvas.width / 2, wheelcanvas.height / 2, outsideRadius, angle, angle + arc);
         ctx.arc(wheelcanvas.width / 2, wheelcanvas.height / 2, insideRadius, angle + arc, angle, true);
-        ctx.closePath();
         ctx.fill();
         ctx.stroke();
 
-        // Vẽ chữ với chia 2 dòng nếu dài
         ctx.save();
         ctx.fillStyle = "#6a3650";
         ctx.translate(
@@ -621,15 +522,14 @@
         ctx.rotate(angle + arc / 2 + Math.PI / 2);
 
         let text = currentItems[i];
-        if (text.length > 15) {
+        if (text.length > 10) {
           const mid = Math.floor(text.length / 2);
           let cutIndex = text.indexOf(' ', mid);
           if (cutIndex === -1) cutIndex = mid;
           const line1 = text.slice(0, cutIndex);
           const line2 = text.slice(cutIndex).trim();
-
-          ctx.fillText(line1, 0, -8);
-          ctx.fillText(line2, 0, 10);
+          ctx.fillText(line1, 0, -5);
+          ctx.fillText(line2, 0, 5);
         } else {
           ctx.fillText(text, 0, 0);
         }
@@ -637,58 +537,55 @@
       }
     }
 
-    // easing giảm tốc
     function easeOut(t, b, c, d) {
-      return c*((t=t/d-1)*t*t + 1) + b;
+      return c * ((t = t / d - 1) * t * t + 1) + b;
     }
 
-    // Quay bánh xe (giả lập easing giảm tốc)
     function rotateWheel() {
       spinTime += 30;
       if (spinTime >= spinTimeTotal) {
         stopRotateWheel();
         return;
       }
-      const spinAngle = spinArcStart - easeOut(spinTime, 0, spinArcStart, spinTimeTotal);
+      const spinAngle = easeOut(spinTime, 0, spinArcStart, spinTimeTotal);
       startAngle += (spinAngle * Math.PI / 180);
       drawWheel();
       spinTimeout = setTimeout(rotateWheel, 30);
     }
 
-    // Khi dừng quay cho kết quả
     function stopRotateWheel() {
       clearTimeout(spinTimeout);
-      const degrees = startAngle * 180/Math.PI + 90;
-      const arcd = arc * 180/Math.PI;
+      const degrees = startAngle * 180 / Math.PI + 90;
+      const arcd = arc * 180 / Math.PI;
       let index = Math.floor((360 - (degrees % 360)) / arcd);
       index = index >= currentItems.length ? index - currentItems.length : index;
       selectedIndex = index;
 
-      // Hiển thị kết quả
       resultTab.style.display = "block";
-      resultTab.textContent = `🎉 Chúc mừng! Bạn đã chọn: "${currentItems[selectedIndex]}" 🎉`;
+      resultTab.textContent = currentItems[selectedIndex]
+        ? `🎉 Chúc mừng! Bạn đã chọn: "${currentItems[selectedIndex]}" 🎉`
+        : "Danh sách trống!";
       spinBtn.disabled = false;
       backBtn.style.display = "inline-block";
       spinning = false;
     }
 
-    // Bắt đầu quay
     function startSpin() {
-      if (spinning) return;
-      if (currentItems.length === 0) {
-        alert('Danh sách hiện tại đang trống. Vui lòng thêm mục mới trước khi quay!');
+      if (spinning || currentItems.length === 0) {
+        if (currentItems.length === 0) {
+          alert('Danh sách trống! Vui lòng thêm mục mới.');
+        }
         return;
       }
       spinBtn.disabled = true;
       resultTab.style.display = "none";
       spinning = true;
-      spinArcStart = Math.floor(Math.random() * 360) + 360 * 3;
+      spinArcStart = Math.random() * 360 + 360 * 3;
       spinTime = 0;
-      spinTimeTotal = Math.floor(Math.random() * 2000) + 4000;
+      spinTimeTotal = Math.random() * 2000 + 3000;
       rotateWheel();
     }
 
-    // Hiển thị màn hình vòng quay & quản lý với danh sách dữ liệu
     function showWheelScreen(type) {
       currentType = type;
       currentItems = loadData(currentType);
@@ -703,15 +600,12 @@
       selectionScreen.style.display = "none";
       wheelScreen.style.display = "flex";
       manageSection.style.display = "block";
-
       editForm.style.display = "none";
       addItemBtn.style.display = "inline-block";
       populateItemList();
-
       spinBtn.focus();
     }
 
-    // Hiển thị màn chọn lại
     function showSelectionScreen() {
       selectionScreen.style.display = "block";
       wheelScreen.style.display = "none";
@@ -719,12 +613,11 @@
       backBtn.style.display = "none";
       manageSection.style.display = "none";
       editingIndex = -1;
-      btnPlace.setAttribute('aria-pressed','false');
-      btnFood.setAttribute('aria-pressed','false');
+      btnPlace.setAttribute('aria-pressed', 'false');
+      btnFood.setAttribute('aria-pressed', 'false');
       btnPlace.focus();
     }
 
-    // Hiển thị danh sách item với nút sửa xóa
     function populateItemList() {
       itemList.innerHTML = '';
       if (currentItems.length === 0) {
@@ -747,9 +640,7 @@
         editBtn.className = 'btn-edit';
         editBtn.textContent = 'Sửa';
         editBtn.setAttribute('aria-label', `Sửa mục ${item}`);
-        editBtn.addEventListener('click', () => {
-          startEditingItem(index);
-        });
+        editBtn.addEventListener('click', () => startEditingItem(index));
         li.appendChild(editBtn);
 
         const delBtn = document.createElement('button');
@@ -767,7 +658,6 @@
       });
     }
 
-    // Bắt đầu chỉnh sửa một item
     function startEditingItem(index) {
       editingIndex = index;
       editInput.value = currentItems[index];
@@ -776,7 +666,6 @@
       editInput.focus();
     }
 
-    // Thêm mục mới
     function startAddingItem() {
       editingIndex = -1;
       editInput.value = '';
@@ -785,24 +674,20 @@
       editInput.focus();
     }
 
-    // Lưu sau khi thêm hoặc sửa
     function saveItem(text) {
       text = text.trim();
       if (!text) {
         alert('Nội dung không được để trống!');
         return false;
       }
-      // Kiểm tra trùng tên
       if (currentItems.some((item, idx) => item.toLowerCase() === text.toLowerCase() && idx !== editingIndex)) {
-        alert('Mục này đã tồn tại trong danh sách!');
+        alert('Mục này đã tồn tại!');
         return false;
       }
 
       if (editingIndex === -1) {
-        // Thêm mới
         currentItems.push(text);
       } else {
-        // Sửa
         currentItems[editingIndex] = text;
       }
       saveData(currentType, currentItems);
@@ -814,7 +699,6 @@
       return true;
     }
 
-    // Xóa mục
     function deleteItem(index) {
       currentItems.splice(index, 1);
       saveData(currentType, currentItems);
@@ -822,55 +706,30 @@
       drawWheel();
     }
 
-    // Sự kiện nút thêm mục mới
     addItemBtn.addEventListener('click', startAddingItem);
-
-    // Sự kiện form lưu
     editForm.addEventListener('submit', e => {
       e.preventDefault();
       if (saveItem(editInput.value)) {
         spinBtn.focus();
       }
     });
-
-    // Nút hủy chỉnh sửa
     cancelBtn.addEventListener('click', () => {
       editForm.style.display = "none";
       addItemBtn.style.display = "inline-block";
       editingIndex = -1;
       spinBtn.focus();
     });
-
-    // Các nút chọn loại
     btnPlace.addEventListener('click', () => {
       btnPlace.setAttribute('aria-pressed', 'true');
       btnFood.setAttribute('aria-pressed', 'false');
       showWheelScreen('place');
     });
-
     btnFood.addEventListener('click', () => {
       btnFood.setAttribute('aria-pressed', 'true');
       btnPlace.setAttribute('aria-pressed', 'false');
       showWheelScreen('food');
     });
-
-    // Nút quay bánh xe
-    spinBtn.addEventListener('click', () => {
-      if (spinning) return;
-      if (currentItems.length === 0) {
-        alert('Danh sách hiện tại đang trống. Vui lòng thêm mục mới trước khi quay!');
-        return;
-      }
-      spinBtn.disabled = true;
-      resultTab.style.display = "none";
-      spinning = true;
-      spinArcStart = Math.floor(Math.random() * 360) + 360 * 3;
-      spinTime = 0;
-      spinTimeTotal = Math.floor(Math.random() * 2000) + 4000;
-      rotateWheel();
-    });
-
-    // Nút quay lại
+    spinBtn.addEventListener('click', startSpin);
     backBtn.addEventListener('click', () => {
       clearTimeout(spinTimeout);
       spinning = false;
@@ -878,14 +737,14 @@
       showSelectionScreen();
     });
 
-    // Khởi tạo app
     function init() {
+      // Đảm bảo canvas có kích thước đúng
+      wheelcanvas.width = 220;
+      wheelcanvas.height = 220;
       showSelectionScreen();
     }
 
-    // Khởi động
     init();
-
   </script>
 </body>
 </html>
