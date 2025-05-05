@@ -158,6 +158,24 @@
       transform: translateY(2px);
     }
 
+    /* Nút quay bánh xe */
+    button#spinBtn {
+      margin-top: 15px;
+      background: #d94f77;
+      color: #fff;
+      padding: 14px 36px;
+      border: none;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 1.25rem;
+      cursor: pointer;
+      box-shadow: 0 6px 12px rgba(217, 79, 119, 0.6);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+      width: 50%;
+      max-width: 200px;
+      user-select: none;
+    }
     button#spinBtn:hover:not(:disabled) {
       background: #e46794;
       box-shadow: 0 8px 18px rgba(228, 103, 148, 0.8);
@@ -185,20 +203,7 @@
       box-shadow: 0 4px 10px rgba(217, 79, 119, 0.3);
     }
 
-    /* Mũi tên chỉ bánh xe*/
-    #pointer {
-      width: 0;
-      height: 0;
-      border-left: 20px solid transparent;
-      border-right: 20px solid transparent;
-      border-top: 30px solid #d94f77; 
-      position: absolute;
-      bottom: 320px; 
-      left: calc(50% - 20px);
-      filter: drop-shadow(0 2px 3px rgba(191, 63, 97, 0.6));
-      z-index: 20;
-      transition: border-color 0.3s ease;
-    }
+    
     #pointer:hover {
       border-top-color: #e46794;
       cursor: pointer;
@@ -428,7 +433,7 @@
 
   <!-- Hình chibi mèo và cún cute bên trên -->
   <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Mèo chibi cute" class="chibi-cat" width="80" height="80" />
-  <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" class="chibi-dog" width="80" height="80" />
+  <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Cún chibi cute" class="chibi-dog" width="80" height="80" />
 
   <!-- Tim lấp lánh -->
   <div class="sparkle" style="top:10px; left: 60px; animation-delay: 0s;"></div>
